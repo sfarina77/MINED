@@ -1,1 +1,4 @@
-echo "streamlit\npandas\nplotly\nfirebase-admin" > requirements.txt
+streamlit
+pandas
+plotly
+firebase-admin
