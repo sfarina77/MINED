@@ -11,10 +11,12 @@ st.set_page_config(page_title="Monitor MINED - Gestión B2B", layout="wide", pag
 if not _apps:
     try:
         cred = credentials.Certificate("firebase_llave.json")
+        # Añadimos explícitamente el proyecto para evitar confusiones en la nube
         initialize_app(cred)
     except Exception as e:
-        st.error(f"❌ Error con 'firebase_llave.json': {e}")
+        st.error(f"❌ Error con la llave: {e}")
 
+# Forzar el cliente a usar una conexión persistente
 db = firestore.client()
 
 # --- ESTÉTICA ---
