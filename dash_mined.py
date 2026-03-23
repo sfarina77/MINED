@@ -7,23 +7,13 @@ from datetime import datetime, timedelta
 # 1. CONFIGURACIÓN DEL DASHBOARD
 st.set_page_config(page_title="Monitor MINED - Gestión B2B", layout="wide", page_icon="🇸🇻")
 
-# 2. CONEXIÓN A FIREBASE (Modo Nube Segura)
+# 2. CONEXIÓN A FIREBASE (Original que funciona en tu Mac)
 if not _apps:
-    # Si estamos en la nube de Streamlit, usamos Secrets
     try:
-        if "firebase" in st.secrets:
-            # Creamos un diccionario con los secretos
-            creds_dict = dict(st.secrets["firebase"])
-            # Firebase requiere que los saltos de línea de la llave privada sean reales
-            creds_dict["private_key"] = creds_dict["private_key"].replace("\\n", "\n")
-            cred = credentials.Certificate(creds_dict)
-            initialize_app(cred)
-        else:
-            # Si estás probando local en tu Mac, sigue usando el archivo
-            cred = credentials.Certificate("firebase_llave.json")
-            initialize_app(cred)
+        cred = credentials.Certificate("firebase_llave.json")
+        initialize_app(cred)
     except Exception as e:
-        st.error(f"❌ Error de Autenticación: {e}")
+        st.error(f"❌ Error con 'firebase_llave.json': {e}")
 
 db = firestore.client()
 
